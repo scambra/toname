@@ -50,7 +50,7 @@ class ToName
     end
 
     #Strip LIMITED off the end.  Note: This is case sensitive
-    name = $` if name =~ /LIMITED|LiMiTED$/
+    name = $` if name =~ /(LIMITED|LiMiTED)$/
 
     #Try to extract the session and episode
     session = nil
