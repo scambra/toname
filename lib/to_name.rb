@@ -41,16 +41,6 @@ class ToName
     name = raw_name.dup
     #Chop off any info about the movie format or source
     name = $` if name =~ CONTENT_SOURCE_REGEX
-  
-    #Extract year if it's in the filename
-    if name =~ YEAR_REGEX && name.index(YEAR_REGEX) > 0
-      name = $`
-      #Strip any surrounding brackets and convert to int
-      year = $&.gsub(/\(|\)|\[|\]/, '').to_i
-    end
-
-    #Strip LIMITED off the end.  Note: This is case sensitive
-    name = $` if name =~ /(LIMITED|LiMiTED)$/
 
     #Try to extract the session and episode
     session = nil
@@ -63,6 +53,16 @@ class ToName
         break
       end
     end  
+  
+    #Extract year if it's in the filename
+    if name =~ YEAR_REGEX && name.index(YEAR_REGEX) > 0
+      name = $`
+      #Strip any surrounding brackets and convert to int
+      year = $&.gsub(/\(|\)|\[|\]/, '').to_i
+    end
+
+    #Strip LIMITED off the end.  Note: This is case sensitive
+    name = $` if name =~ /(LIMITED|LiMiTED)$/
 
     if session.nil? && name =~ SESSION_ESP_REGEX_OF
       name = $`
